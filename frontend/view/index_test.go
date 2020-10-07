@@ -1,4 +1,4 @@
-package frontend
+package view
 
 import (
 	"goSetUp/crawler/engine"

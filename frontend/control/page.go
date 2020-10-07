@@ -1,9 +1,7 @@
 package control
 
-import "goSetUp/crawler/engine"
-
 type SearchResult struct {
-	Hits  int
+	Hits  int64
 	Start int
-	Items []engine.Item
+	Items []interface{}
 }

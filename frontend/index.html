@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V01</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	<form>
+
+	</form>
+	<h2>Found total matches: {{.Hits}}. Result start from {{.Start}} and there are {{len .Items}} results</h2>
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100">
+					<table>
+						<thead>
+							<tr class="table100-head">
+								<th class="column1">Name</th>
+								<th class="column2">Age</th>
+								<th class="column3">Height(cm)</th>
+								<th class="column4">Weight(kg)</th>
+								<th class="column5">Income(range)</th>
+								<th class="column6">Marriage</th>
+								<th class="column6">Origin</th>
+							</tr>
+						</thead>
+						<tbody>
+						{{range .Items}}
+						<tr>
+							<td class="column1"><a href="{{.Url}}">{{.Payload.Name}}</a></td>
+							{{with .Payload}}
+							<td class="column2">{{.Age}}</td>
+							<td class="column3">{{.Height}}</td>
+							<td class="column4">{{.Weight}}</td>
+							<td class="column5">{{.Income}}</td>
+							<td class="column6">{{.Marriage}}</td>
+							<td class="column6">{{.Origin}}</td>
+							{{end}}
+						</tr>
+						{{else}}
+						<div>No related user is found</div>
+						{{end}}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	
+
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+</html>

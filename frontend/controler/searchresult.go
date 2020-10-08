@@ -7,6 +7,7 @@ import (
 	"goSetUp/crawler/frontend/view"
 	"net/http"
 	"reflect"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -47,12 +48,20 @@ func (h SearchResultHandler) ServeHTTP(w http.ResponseWriter, req *http.Request)
 }
 func (h SearchResultHandler) getSearchResult(q string, from int) (control.SearchResult, error) {
 	var result control.SearchResult
-	resp, err := h.client.Search("dating_profile").Query(elastic.NewQueryStringQuery(q)).From(from).Do(context.Background())
+	result.Query = q
+	resp, err := h.client.Search("dating_profile").Query(elastic.NewQueryStringQuery(rewriteQueryString(q))).From(from).Do(context.Background())
 	if err != nil {
 		return result, err
 	}
 	result.Hits = resp.TotalHits()
 	result.Start = from
 	result.Items = resp.Each(reflect.TypeOf(engine.Item{}))
+	result.PrevFrom = result.Start - len(result.Items)
+	result.NextFrom = result.Start + len(result.Items)
 	return result, nil
+}
+func rewriteQueryString(q string) string {
+	re := regexp.MustCompile(`([A-Z][a-z]*):`)
+	str := re.ReplaceAllString(q, "Payload.$1")
+	return str
 }

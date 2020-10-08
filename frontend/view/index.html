@@ -25,9 +25,18 @@
 	<form>
 
 	</form>
-	<h2>Found total matches: {{.Hits}}. Result start from {{.Start}} and there are {{len .Items}} results</h2>
 	<div class="limiter">
 		<div class="container-table100">
+			<div>
+				<form method="get">
+					<input type="text" maxlength="100" style="width: 500px" name = "q" value = {{.Query}}>
+					<button type="submit" style="color:white">Search</button>
+				</form>
+			</div>
+			<div>
+				<h4 align="middle">Found total matches: {{.Hits}}. Result start from {{.Start}} and there are {{len .Items}} results</h4>
+			</div>
+
 			<div class="wrap-table100">
 				<div class="table100">
 					<table>
@@ -60,6 +69,12 @@
 						{{end}}
 						</tbody>
 					</table>
+					<div align="middle">
+						{{if ge .PrevFrom 0}}
+						<a class="color: white; fontSize: 18px" href="search?q={{.Query}}&from={{.PrevFrom}}">Prev</a>
+						{{end}}
+						<a class="color: white; fontSize: 18px" href="search?q={{.Query}}&from={{.NextFrom}}">Next</a>
+					</div>
 				</div>
 			</div>
 		</div>
